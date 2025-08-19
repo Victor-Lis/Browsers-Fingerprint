@@ -1,0 +1,16 @@
+{
+  "compatibility_date": "2025-04-01",
+  "main": "src/index.ts",
+  "name": "cloudfare-browsers-fingerprint",
+  "upload_source_maps": true,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_id": "f7dcb341-7b09-4e2f-8137-06f6ee6a5aee",
+      "database_name": "sqlite-database"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  }
+}
