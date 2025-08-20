@@ -1,59 +1,46 @@
-# Worker + D1 Database
+# Cloudflare Browsers Fingerprint
 
-[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/cloudflare/templates/tree/main/d1-template)
+Este projeto é uma aplicação serverless utilizando [Cloudflare Workers](https://workers.cloudflare.com/) e [Cloudflare D1](https://developers.cloudflare.com/d1/) para registrar e exibir fingerprints de navegadores de visitantes.
 
-![Worker + D1 Template Preview](https://imagedelivery.net/wSMYJvS3Xw-n339CbDyDIA/cb7cb0a9-6102-4822-633c-b76b7bb25900/public)
+## Funcionalidades
 
-<!-- dash-content-start -->
+- Captura automática de informações do visitante (IP, user agent, idioma, plataforma, localização, ISP, colo, etc).
+- Armazena os dados em um banco de dados SQL (D1).
+- Painel administrativo protegido por autenticação para visualizar os registros.
+- Interface web estilizada para feedback ao visitante e para o painel de administração.
 
-D1 is Cloudflare's native serverless SQL database ([docs](https://developers.cloudflare.com/d1/)). This project demonstrates using a Worker with a D1 binding to execute a SQL statement. A simple frontend displays the result of this query:
+## Estrutura do Projeto
 
-```SQL
-SELECT * FROM comments LIMIT 3;
-```
+- `src/index.js`: Ponto de entrada do Worker, roteando requisições.
+- `src/routes/fingerprint.js`: Captura e armazena o fingerprint do visitante.
+- `src/routes/admin.js`: Exibe o painel de registros, protegido por autenticação.
+- `src/utils/`: Componentes de UI em HTML para respostas do Worker.
+- `migrations/`: Scripts SQL para criação das tabelas no banco D1.
 
-The D1 database is initialized with a `comments` table and this data:
+## Como funciona
 
-```SQL
-INSERT INTO comments (author, content)
-VALUES
-    ('Kristian', 'Congrats!'),
-    ('Serena', 'Great job!'),
-    ('Max', 'Keep up the good work!')
-;
-```
+- Acessando `/`, o visitante tem seu fingerprint registrado e recebe uma confirmação.
+- Acessando `/admin?username=admin&password=admin`, um administrador pode visualizar os registros (usuário e senha configuráveis em `wrangler.json`).
 
-> [!IMPORTANT]
-> When using C3 to create this project, select "no" when it asks if you want to deploy. You need to follow this project's [setup steps](https://github.com/cloudflare/templates/tree/main/d1-template#setup-steps) before deploying.
+## Configuração e Deploy
 
-<!-- dash-content-end -->
-
-## Getting Started
-
-Outside of this repo, you can start a new project with this template using [C3](https://developers.cloudflare.com/pages/get-started/c3/) (the `create-cloudflare` CLI):
-
-```
-npm create cloudflare@latest -- --template=cloudflare/templates/d1-template
-```
-
-A live public deployment of this template is available at [https://d1-template.templates.workers.dev](https://d1-template.templates.workers.dev)
-
-## Setup Steps
-
-1. Install the project dependencies with a package manager of your choice:
+1. Instale as dependências:
    ```bash
    npm install
    ```
-2. Create a [D1 database](https://developers.cloudflare.com/d1/get-started/) with the name "d1-template-database":
+2. Crie um banco de dados [D1](https://developers.cloudflare.com/d1/get-started/) com o nome "d1-template-database":
    ```bash
    npx wrangler d1 create d1-template-database
    ```
-   ...and update the `database_id` field in `wrangler.json` with the new database ID.
-3. Run the following db migration to initialize the database (notice the `migrations` directory in this project):
+   ...e atualize o campo `database_id` em `wrangler.json` com o novo ID do banco de dados.
+3. Execute a seguinte migração para inicializar o banco de dados (note o diretório `migrations` neste projeto):
    ```bash
    npx wrangler d1 migrations apply --remote d1-template-database
    ```
-4. Deploy the project!
+4. Faça o deploy do projeto!
    ```bash
    npx wrangler deploy
    ```
+
+# Auto
+- [@Victor-Lis](https://www.linkedin.com/in/victor-lis-bronzo)
