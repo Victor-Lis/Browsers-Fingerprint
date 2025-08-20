@@ -1,6 +1,6 @@
 {
   "compatibility_date": "2025-04-01",
-  "main": "src/index.ts",
+  "main": "src/index.js",
   "name": "cloudfare-browsers-fingerprint",
   "upload_source_maps": true,
   "d1_databases": [
@@ -12,5 +12,9 @@
   ],
   "observability": {
     "enabled": true
+  },
+  "vars": {
+    "ADMIN_USERNAME": "admin",
+    "ADMIN_PASSWORD": "admin"
   }
 }
