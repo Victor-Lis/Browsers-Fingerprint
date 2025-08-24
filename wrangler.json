@@ -6,7 +6,7 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_id": "f7dcb341-7b09-4e2f-8137-06f6ee6a5aee",
+      "database_id": "(your id here)",
       "database_name": "sqlite-database"
     }
   ],
